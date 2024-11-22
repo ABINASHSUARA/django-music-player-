@@ -1,0 +1,60 @@
+<html>
+   <head>
+    <meta charset="utf-8"/>
+    <title>Music Player</title>
+   </head>
+   <body>
+   
+   <!-- Header Section -->
+   <header style="text-align: center; padding: 20px; border-bottom: 2px solid;">
+     <h1>Welcome to the Music Player</h1>
+     <p><b>Enjoy your favorite tunes with ease!</b></p>
+   </header>
+   
+   <!-- Main Content -->
+   <div class="music-player">
+     {% for item in page_obj %}
+     <div class="cover">
+       <img alt="" src="{{item.image.url}}"/>
+     </div>
+
+     <div class="titre">
+       <h3>{{item.artist}}</h3>
+       <h1>{{item.title}}</h1>
+     </div>
+       
+     <center>
+       <a href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% endif %}">
+         <i class="fa fa-step-backward fa-2x"></i>
+       </a>
+       &nbsp; &nbsp; &nbsp; 
+       <a href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }} {% endif %}">
+         <i class="fa fa-step-forward fa-2x"></i>
+       </a>
+     </center>
+       
+     <div class="lecteur">
+       <audio class="fc-media" style="width: 100%;" id="fc-media">
+         <source src="{% if item.audio_file %}{{item.audio_file.url}} {% else %} {{item.audio_link}} {% endif %}" type="audio/mp3"/>
+       </audio>
+     </div>
+     </div>     
+
+     <div class="right-section">
+       <div class="lyrics-container">
+         <div class="lyrics">
+           <p id="song-lyrics" class="song-lyrics" data-lyrics="{{item.lyrics}}"></p>
+         </div>
+       </div>
+     </div>
+     {% endfor %}
+   </div>
+   
+   <!-- Footer Section -->
+   <footer style="text-align: center; padding: 20px;  border-top: 2px solid; margin-top: 20px;">
+     <p>&copy; 2024 Music Player. All Rights Reserved.</p>
+     <p>Developed by Abinash Suara</p>
+   </footer>
+
+   </body>
+</html>
